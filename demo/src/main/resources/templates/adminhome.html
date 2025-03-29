@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <title>Admin Home</title>
+    <style>
+        body {
+              font-family: Arial, sans-serif;
+              background-color: #f4f4f4;
+              margin: 0;
+              padding: 0;
+          }
+
+          .container {
+          display: grid;
+          grid-template-areas:
+          "header header"
+          "users books";
+          grid-template-rows: auto auto;
+
+              width: 50%;
+              margin: auto;
+              overflow: hidden;
+              padding: 20px;
+              background: #fff;
+              border-radius: 10px;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+              margin-top: 50px;
+          }
+
+          .container > div{
+           color: #333;
+          padding:10px;
+          }
+
+.container > div.header{
+          grid-area: header;
+          text-align: center;
+          overflow: hidden;
+          float: center;
+          }
+
+      div.header >    h2 {
+              text-align: center;
+              color: #333;
+          }
+
+         div.header > label {
+              display: block;
+              margin-bottom: 5px;
+          }
+
+         div.header >   a {
+                display: block;
+                width: 20%;
+                padding: 10px;
+                background: #333;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+                text-decoration: none;
+
+            }
+
+        div.header >    a:hover {
+                background: #555;
+            }
+
+          .container > div.users{
+          grid-area: users;
+          text-align: center;
+          overflow: hidden;
+float: center;
+          }
+          div.users > h2 {
+              text-align: center;
+              color: #333;
+          }
+         div.users > label {
+              display: block;
+              margin-bottom: 5px;
+          }
+
+         div.users >   a {
+                display: block;
+                width: 20%;
+                padding: 10px;
+                padding-top: 5px;
+                background: #333;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+                text-decoration: none;
+
+            }
+
+         div.users >   a:hover {
+                background: #555;
+            }
+
+
+          }
+            .container > div.books{
+          grid-area: books;
+          text-align: center;
+          float: center;
+          overflow: hidden;
+
+          }
+         div.books > h2 {
+              text-align: center;
+              color: #333;
+          }
+         div.books > label {
+              display: block;
+              margin-bottom: 5px;
+          }
+
+         div.books >   a {
+                display: block;
+                width: 20%;
+                padding: 10px;
+                padding-top: 5px;
+                background: #333;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+                text-decoration: none;
+
+            }
+
+           div.books > a:hover {
+                background: #555;
+            }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h2>This is the admin homepage.</h2>
+        <a class="btn" th:href="@{/home}">Home</a>
+        <p>Welcome Admin</p>
+    </div>
+    <div class="users">
+        <h2>Users</h2>
+        <a class="btn" th:href="@{/home}">Add Users</a>
+        <a class="btn" th:href="@{/home}">Block/Unblock User</a>
+    </div>
+    <div class="books">
+        <h2>Books</h2>
+        <a class="btn" th:href="@{/adminbooks}">View Books</a>
+        <a class="btn" th:href="@{/home}">Remove Books</a>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>User Home</title>
+<!--  <link rel="stylesheet" th:href="@{/css/style.css}" />-->
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 50%;
+        margin: auto;
+        overflow: hidden;
+        padding: 20px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    .btn {
+        display: block;
+        width: 100px;
+        margin: 20px auto;
+        padding: 10px;
+        text-align: center;
+        background: #333;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background: #555;
+    }
+
+    .disabled {
+        background: #888;
+        pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Welcome User</h1>
+  <p>This is the user homepage.</p>
+  <a class="btn" th:href="@{/home}">Home</a>
+
+    <a class="btn" th:href="@{/books}">Books</a>
+
+</div>
+</body>
+</html>
