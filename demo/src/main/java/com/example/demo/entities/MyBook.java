@@ -24,6 +24,32 @@ public class MyBook {
     private String title;
     private Integer year;
 
+    public Long getId() {
+        return id;
+    }
 
-    // Default constructor is needed for JPA
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+// Default constructor is needed for JPA
 }

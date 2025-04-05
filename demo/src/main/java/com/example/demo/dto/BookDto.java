@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class BookDto {
 
@@ -8,7 +9,7 @@ public class BookDto {
     private String author;
     @NotEmpty (message = "Bokens titel är obligatorisk")
     private String title;
-    @NotEmpty (message = "År är obligatorisk")
+    @NotNull (message = "År är obligatorisk")
     private Integer year;
 
     public String getAuthor() {

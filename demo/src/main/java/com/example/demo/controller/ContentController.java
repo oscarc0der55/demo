@@ -4,11 +4,15 @@ import com.example.demo.dto.BookDto;
 import com.example.demo.entities.MyBook;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.MyBookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -56,7 +60,6 @@ public class ContentController {
      */
 
 
-
     @GetMapping("/admin/home")
     public String adminHome() {
         return "adminhome";
@@ -66,13 +69,15 @@ public class ContentController {
 
     @Autowired
     private UserRepository userRepository;
+
     @GetMapping("/adminuser")
-    public String adminUser(){
+    public String adminUser() {
 
         // var users = userRepository.findByUsername(Sort.by(Sort.Direction.DESC, "username"));
-        
-            return "adminuser";
-}
+
+        return "adminuser";
+    }
+
     /**
      * Maps the user home page.
      *
@@ -83,10 +88,10 @@ public class ContentController {
         return "userhome";
     }
 
-    @PostMapping
-    public MyBook addBook(MyBook book) {
-        return myBookService.saveBook(book);
-    }
+//    @PostMapping
+//    public MyBook addBook(MyBook book) {
+//        return myBookService.saveBook(book);
+//    }
 
     @GetMapping("/books")
     public String showAllBooks(Model model) {
@@ -104,10 +109,52 @@ public class ContentController {
 
 
     @GetMapping("/addbook")
-    public String addBook(Model model){
+    public String addBook(Model model) {
         BookDto bookDto = new BookDto();
         model.addAttribute("bookdto", bookDto);
         return "addbook";
+    }
+
+    @PostMapping("/addbook")
+    public String addBook(@Valid @ModelAttribute BookDto bookDto, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "addbook";
+        }
+
+        List<MyBook> books = myBookService.getAllBooks();
+        for (MyBook book : books) {
+            if (book.getAuthor().replaceAll("\\s", "").equalsIgnoreCase(bookDto.getAuthor().replaceAll("\\s", "")) &&
+                    book.getTitle().replaceAll("\\s", "").equalsIgnoreCase(bookDto.getTitle().replaceAll("\\s", ""))) {
+               return "addbook";
+            }
+        }
+
+        MyBook myBook = new MyBook();
+        myBook.setAuthor(bookDto.getAuthor());
+        myBook.setTitle(bookDto.getTitle());
+        myBook.setYear(bookDto.getYear());
+
+        myBookService.saveBook(myBook);
+
+        return "redirect:/adminbooks";
+    }
+
+    @GetMapping("/editbook")
+    public String editBook(Model model, @RequestParam long id) {
+        MyBook myBook = myBookService.getBookById(id);
+        if(myBook == null){
+            return "redirect:/adminbooks";
+        }
+
+        BookDto bookDto = new BookDto();
+        bookDto.setAuthor(myBook.getAuthor());
+        bookDto.setTitle(myBook.getTitle());
+        bookDto.setYear(myBook.getYear());
+
+        model.addAttribute("mybook", myBook);
+        model.addAttribute("bookdto", bookDto);
+        return "editbook";
     }
 
 }
