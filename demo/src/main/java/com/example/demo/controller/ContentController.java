@@ -136,14 +136,14 @@ public class ContentController {
         myBook.setYear(bookDto.getYear());
 
         myBookService.saveBook(myBook);
-
         return "redirect:/adminbooks";
     }
 
     @GetMapping("/editbook")
-    public String editBook(Model model, @RequestParam long id) {
+    public String editBook(Model model,
+                           @RequestParam long id) {
         MyBook myBook = myBookService.getBookById(id);
-        if(myBook == null){
+        if (myBook == null) {
             return "redirect:/adminbooks";
         }
 
@@ -157,4 +157,29 @@ public class ContentController {
         return "editbook";
     }
 
+    @PostMapping("/editbook")
+    public String editBook(Model model,
+                           @RequestParam long id,
+                           @Valid @ModelAttribute BookDto bookDto,
+                           BindingResult result) {
+
+        MyBook myBook = myBookService.getBookById(id);
+        if (myBook == null) {
+            return "redirect:/adminbooks";
+        }
+
+        model.addAttribute("myBook", myBook);
+
+        if (result.hasErrors()) {
+            return "editbook";
+        }
+
+        myBook.setAuthor(bookDto.getAuthor());
+        myBook.setTitle(bookDto.getTitle());
+        myBook.setYear(bookDto.getYear());
+
+        myBookService.updateBook(myBook);
+
+        return "redirect:/adminbooks";
+    }
 }
