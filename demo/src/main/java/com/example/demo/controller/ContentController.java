@@ -182,4 +182,14 @@ public class ContentController {
 
         return "redirect:/adminbooks";
     }
+
+    @GetMapping("/removebook")
+    public String deleteBook(@RequestParam long id){
+
+        MyBook myBook = myBookService.getBookById(id);
+        if (myBook != null) {
+            myBookService.delete(myBook);
+        }
+        return "redirect:/adminbooks";
+    }
 }

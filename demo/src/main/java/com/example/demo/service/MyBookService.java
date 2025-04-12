@@ -30,4 +30,8 @@ public class MyBookService {
     public void updateBook(MyBook myBook) {
         bookRepository.save(myBook);
     }
+
+    public void delete(MyBook myBook) {
+        bookRepository.delete(myBook);
+    }
 }
